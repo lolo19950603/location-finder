@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
     <CurrentLocation msg="Welcome to Your Vue.js App"/>
+    <MapContainer :latitude="43.7092352" :longitude="-79.3935872"/>
   </div>
 </template>
 
 <script>
 import CurrentLocation from './components/CurrentLocation.vue'
+import MapContainer from './components/MapContainer.vue'
 
 export default {
   name: 'App',
   components: {
-    CurrentLocation
+    CurrentLocation,
+    MapContainer
   }
 }
 </script>
