@@ -7,10 +7,10 @@
 <script>
 export default {
   name: 'CurrentLocation',
-  props: {
-    msg: String
-  },
   methods: {
+    updateLocation(latitude, longitude) {
+      this.$emit('updateLocation', latitude, longitude);
+    },
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.handleSuccess, this.handleError);
@@ -21,8 +21,7 @@ export default {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
       // Use latitude and longitude values as needed
-      console.log(latitude, longitude)
-      console.log(this.msg)
+      this.updateLocation(latitude, longitude)
     },
     handleError(error) {
       // Code to handle geolocation error

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div id="map" style="height: 400px; width:100%"></div>
+  <div class="map">
+    <div ref="map" class="leaflet-map"></div>
   </div>
 </template>
 
@@ -11,32 +11,58 @@ import currentMarkerIconPng from '@/assets/current-marker.png';
 
 export default {
   name: "MapContainer",
+  data() {
+    return {
+      map: null,
+      currentMarkerIcon: null,
+      currentMarker: null,
+    };
+  },
   props: {
     latitude: Number,
     longitude: Number
   },
   mounted() {
-    const latitude = this.latitude;
-    const longitude = this.longitude;
-
-    // Initialize the map
-    const map = L.map("map").setView([latitude, longitude], 10);
-
-    // Add a tile layer to the map (e.g., using OpenStreetMap)
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "Map data © OpenStreetMap contributors",
-      maxZoom: 18,
-    }).addTo(map);
-
-    // Add a you are here marker for the location
-    const currentMarkerIcon = L.icon({
-      iconUrl: currentMarkerIconPng,
-      iconSize: [64, 64],
-      iconAnchor: [32,64]
-    });
-    L.marker([latitude, longitude], { icon: currentMarkerIcon }).addTo(map);
+    this.renderMap();
   },
+  watch: {
+    latitude: function() {
+      this.handleLatitudeChange();
+    },
+  },
+  methods: {
+    renderMap() {
+      this.map = L.map(this.$refs.map).setView([this.latitude, this.longitude], 2)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © OpenStreetMap contributors',
+        noWrap: true
+      }).addTo(this.map);
+      const southWest = L.latLng(-89.98155760646617, -180),
+      northEast = L.latLng(89.99346179538875, 180);
+      const bounds = L.latLngBounds(southWest, northEast);
+      this.map.setMaxBounds(bounds);
+      this.currentMarkerIcon = L.icon({
+        iconUrl: currentMarkerIconPng,
+        iconSize: [96, 96],
+        iconAnchor: [48,96]
+      });
+    },
+    handleLatitudeChange() {
+      if (this.currentMarker) {
+        this.currentMarker.removeFrom(this.map);
+      }
+      this.map.setView([this.latitude, this.longitude], 6)
+      this.currentMarker = L.marker([this.latitude, this.longitude], { icon: this.currentMarkerIcon }).addTo(this.map);
+    },
+  }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.map {
+  padding-top: 10px;
+}
+.leaflet-map {
+  height: 700px;
+}
+</style>

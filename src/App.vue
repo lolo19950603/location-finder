@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <CurrentLocation msg="Welcome to Your Vue.js App"/>
-    <MapContainer :latitude="43.7092352" :longitude="-79.3935872"/>
+    <h1>Location Finder</h1>
+    <CurrentLocation @updateLocation="updateLocation"/>
+    <MapContainer :latitude="latitude" :longitude="longitude"/>
   </div>
 </template>
 
@@ -14,7 +15,19 @@ export default {
   components: {
     CurrentLocation,
     MapContainer
-  }
+  },
+  data() {
+    return {
+      latitude: 50.1304,
+      longitude: -98.3468
+    };
+  },
+  methods: {
+    updateLocation(latitude, longitude) {
+      this.latitude = latitude;
+      this.longitude = longitude;
+    },
+  },
 }
 </script>
 
