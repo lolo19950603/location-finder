@@ -1,31 +1,36 @@
 <template>
   <div id="app">
     <h1>Location Finder</h1>
-    <CurrentLocation @updateLocation="updateLocation"/>
-    <MapContainer :latitude="latitude" :longitude="longitude"/>
+    <CurrentLocation :currentLatitude="currentLatitude" :currentLongitude="currentLongitude" @updateCurrentLocation="updateCurrentLocation"/>
+    <SearchLocation :searchLatitude="searchLatitude" :searchLongitude="searchLongitude" />
+    <MapContainer :currentLatitude="currentLatitude" :currentLongitude="currentLongitude"/>
   </div>
 </template>
 
 <script>
 import CurrentLocation from './components/CurrentLocation.vue'
+import SearchLocation from './components/SearchLocation.vue'
 import MapContainer from './components/MapContainer.vue'
 
 export default {
   name: 'App',
   components: {
     CurrentLocation,
+    SearchLocation,
     MapContainer
   },
   data() {
     return {
-      latitude: 50.1304,
-      longitude: -98.3468
+      currentLatitude: 0,
+      currentLongitude: 0,
+      searchLatitude: 1,
+      searchLongitude: 1,
     };
   },
   methods: {
-    updateLocation(latitude, longitude) {
-      this.latitude = latitude;
-      this.longitude = longitude;
+    updateCurrentLocation(currentLatitude, currentLongitude) {
+      this.currentLatitude = currentLatitude;
+      this.currentLongitude = currentLongitude;
     },
   },
 }

@@ -1,5 +1,6 @@
 <template>
   <div class="current-location">
+    <h3>Current Location: {{ this.currentLatitude }}, {{ this.currentLongitude }}</h3>
     <button @click="getLocation">Acquire current locaiton</button>
   </div>
 </template>
@@ -7,10 +8,11 @@
 <script>
 export default {
   name: 'CurrentLocation',
+  props: {
+    currentLatitude: Number,
+    currentLongitude: Number
+  },
   methods: {
-    updateLocation(latitude, longitude) {
-      this.$emit('updateLocation', latitude, longitude);
-    },
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.handleSuccess, this.handleError);
@@ -21,12 +23,15 @@ export default {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
       // Use latitude and longitude values as needed
-      this.updateLocation(latitude, longitude)
+      this.updateCurrentLocation(latitude, longitude)
     },
     handleError(error) {
       // Code to handle geolocation error
       // error.code contains the error code, and error.message contains the error message
       console.log(error)
+    },
+    updateCurrentLocation(latitude, longitude) {
+      this.$emit('updateCurrentLocation', latitude, longitude);
     },
   }
 }
