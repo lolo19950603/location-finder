@@ -3,17 +3,26 @@
     <h3>
       Searched Location: {{ this.searchLatitude }}, {{ this.searchLongitude }}
     </h3>
+    <vue-google-autocomplete
+      id="autocomplete"
+      :placeholder="'Enter a location'"
+      v-on:placechanged="handlePlaceChanged"
+      types='geocode'
+    ></vue-google-autocomplete>
   </div>
 </template>
 
 <script>
-import VueGooglePlacesAutocomplete from 'vue-google-places';
+import VueGoogleAutocomplete from 'vue-google-autocomplete';
 
 export default {
   name: "SearchLocation",
+  components: {
+    VueGoogleAutocomplete,
+  },
   data() {
     return {
-      searchQuery: "",
+      libraries: 'places',
     };
   },
   props: {
@@ -21,8 +30,14 @@ export default {
     searchLongitude: Number,
   },
   methods: {
-    getLocation() {
-      console.log("sucess");
+    handlePlaceChanged(place) {
+      // Handle place change events
+      const lat = place.latitude;
+      const lng  = place.longitude;
+      this.updateSearchLocation(lat, lng)
+    },
+    updateSearchLocation(latitude, longitude) {
+      this.$emit('updateSearchLocation', latitude, longitude);
     },
   },
 };

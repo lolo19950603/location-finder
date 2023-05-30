@@ -12,6 +12,12 @@
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
+    <script>
+      function initMap() {
+        // Empty function, no action needed
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCvxNCEJen7VzPMwgErCK9_6oL2I65M7E&libraries=places&callback=initMap"></script>
     <!-- built files will be auto injected -->
   </body>
 </html>

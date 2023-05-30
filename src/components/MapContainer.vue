@@ -8,6 +8,7 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import currentMarkerIconPng from '@/assets/current-marker.png';
+import searchMarkerIconPng from '@/assets/search-marker.png';
 
 export default {
   name: "MapContainer",
@@ -15,19 +16,26 @@ export default {
     return {
       map: null,
       currentMarkerIcon: null,
+      searchMarkerIcon: null,
       currentMarker: null,
     };
   },
   props: {
     currentLatitude: Number,
-    currentLongitude: Number
+    currentLongitude: Number,
+    acquireClickCounter: Number,
+    searchLatitude: Number,
+    searchLongitude: Number
   },
   mounted() {
     this.initMap();
   },
   watch: {
-    currentLatitude: function() {
-      this.handleCurrentLatitudeChange();
+    acquireClickCounter: function() {
+      this.handleCurrentLocationChange();
+    },
+    searchLatitude: function() {
+      this.handleSearchLocationChange();
     },
   },
   methods: {
@@ -52,13 +60,22 @@ export default {
         iconSize: [96, 96],
         iconAnchor: [48,96]
       });
+      this.searchMarkerIcon = L.icon({
+        iconUrl: searchMarkerIconPng,
+        iconSize: [24.68, 40],
+        iconAnchor: [20,40]
+      });
     },
-    handleCurrentLatitudeChange() {
+    handleCurrentLocationChange() {
       if (this.currentMarker) {
         this.currentMarker.removeFrom(this.map);
       }
-      this.map.setView([this.currentLatitude, this.currentLongitude], 6)
+      this.map.setView([this.currentLatitude, this.currentLongitude], 13);
       this.currentMarker = L.marker([this.currentLatitude, this.currentLongitude], { icon: this.currentMarkerIcon }).addTo(this.map);
+    },
+    handleSearchLocationChange() {
+      this.map.setView([this.searchLatitude, this.searchLongitude], 13)
+      L.marker([this.searchLatitude, this.searchLongitude], { icon: this.searchMarkerIcon }).addTo(this.map);
     },
   },
 };
