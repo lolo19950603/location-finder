@@ -17,7 +17,7 @@ export default {
       map: null,
       currentMarkerIcon: null,
       searchMarkerIcon: null,
-      currentMarker: null,
+      currentMarker: null
     };
   },
   props: {
@@ -25,7 +25,9 @@ export default {
     currentLongitude: Number,
     acquireClickCounter: Number,
     searchLatitude: Number,
-    searchLongitude: Number
+    searchLongitude: Number,
+    searchPlaceName: String,
+    searchClickCounter: Number
   },
   mounted() {
     this.initMap();
@@ -34,7 +36,7 @@ export default {
     acquireClickCounter: function() {
       this.handleCurrentLocationChange();
     },
-    searchLatitude: function() {
+    searchClickCounter: function() {
       this.handleSearchLocationChange();
     },
   },
@@ -75,7 +77,10 @@ export default {
     },
     handleSearchLocationChange() {
       this.map.setView([this.searchLatitude, this.searchLongitude], 13)
-      L.marker([this.searchLatitude, this.searchLongitude], { icon: this.searchMarkerIcon }).addTo(this.map);
+      this.updateMarkerList(L.marker([this.searchLatitude, this.searchLongitude], { title: this.searchPlaceName, icon: this.searchMarkerIcon }).addTo(this.map));
+    },
+    updateMarkerList(marker) {
+      this.$emit('updateMarkerList', marker);
     },
   },
 };
