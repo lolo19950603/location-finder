@@ -64,19 +64,19 @@ export default {
       });
       this.searchMarkerIcon = L.icon({
         iconUrl: searchMarkerIconPng,
-        iconSize: [24.68, 40],
-        iconAnchor: [20,40]
+        iconSize: [50, 50],
+        iconAnchor: [25, 50]
       });
     },
     handleCurrentLocationChange() {
       if (this.currentMarker) {
         this.currentMarker.removeFrom(this.map);
       }
-      this.map.setView([this.currentLatitude, this.currentLongitude], 13);
+      this.map.setView([this.currentLatitude, this.currentLongitude], 4);
       this.currentMarker = L.marker([this.currentLatitude, this.currentLongitude], { icon: this.currentMarkerIcon }).addTo(this.map);
     },
     handleSearchLocationChange() {
-      this.map.setView([this.searchLatitude, this.searchLongitude], 13)
+      this.map.setView([this.searchLatitude, this.searchLongitude], 4)
       this.updateMarkerList(L.marker([this.searchLatitude, this.searchLongitude], { title: this.searchPlaceName, icon: this.searchMarkerIcon }).addTo(this.map));
     },
     updateMarkerList(marker) {
