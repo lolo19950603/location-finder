@@ -1,7 +1,8 @@
 <template>
   <div class="current-location">
-    <h3>Current Location: {{ this.currentLatitude }}, {{ this.currentLongitude }}</h3>
-    <button @click="getLocation">Acquire current locaiton</button>
+    <h3>Current Geolocation</h3>
+    <h4>{{ this.currentLatitude.toFixed(6) }}°, {{ this.currentLongitude.toFixed(6) }}°</h4>
+    <button class="btn btn-dark btn-sm" @click="getLocation">Acquire current locaiton</button>
   </div>
 </template>
 
@@ -36,7 +37,5 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
