@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Searched Records</h3>
-    <div class="d-flex justify-content-start">
+    <div class="d-flex justify-content-start gap-2">
       <button class="btn btn-danger btn-sm" @click="deleteSelectedMarkers">Delete Selected Records</button>
       <button class="btn btn-success btn-sm" @click="clearSelections">Clear Selections</button>
     </div>

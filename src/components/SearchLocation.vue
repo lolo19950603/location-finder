@@ -8,6 +8,7 @@
     <p><b>Time Zone:</b> {{ searchTimeZone }}</p>
     <p><b>Local Time:</b> {{ searchLocalTime }}</p>
     <vue-google-autocomplete
+      class="form-control mb-1"
       id="map-autocomplete"
       ref="autocomplete"
       :placeholder="'Enter a location'"
