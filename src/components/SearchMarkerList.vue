@@ -22,8 +22,8 @@
           </td>
           <td>{{ marker.options.title[0] }}</td>
           <td>{{ marker.options.title[1] }}</td>
-          <td>{{ marker.getLatLng().lat }}</td>
-          <td>{{ marker.getLatLng().lng }}</td>
+          <td>{{ marker.getLatLng().lat.toFixed(6) }}°</td>
+          <td>{{ marker.getLatLng().lng.toFixed(6) }}°</td>
         </tr>
       </tbody>
     </table>
