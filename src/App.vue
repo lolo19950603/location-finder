@@ -45,13 +45,8 @@ export default {
   grid-template-columns: 1fr;
   grid-template-rows: 0.1fr 1fr 7fr;
 }
-h1 {
-}
 
 .current-location {
   margin: auto;
-}
-
-.map-container {
 }
 </style>
